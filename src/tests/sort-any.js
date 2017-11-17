@@ -1,4 +1,7 @@
 const expect = require('sort-any/tests/expect');
+const sortAny = require('sort-any');
+
+/* eslint-disable sort-keys */
 
 const expected = [
   undefined,
@@ -94,6 +97,8 @@ const expected = [
 ];
 
 describe('test', () => {
-  it('sorts - case 1', () => {
+  it.skip('sorts - case 1', () => {
+    const array = [];
+    expect(sortAny(array)).to.deep.equal(expected);
   });
 });
