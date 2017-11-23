@@ -190,7 +190,53 @@ describe('test', () => {
     expect(JSON.parse(JSON.stringify(sortAny(array)))).to.deep.equal(JSON.parse(JSON.stringify(expected)));
   });
 
-  it.skip('sorts arrays', () => {
+  it('sorts arrays - very simple example', () => {
+    const expected = [
+      [1, 2],
+      [2, 1],
+      [1, 3],
+      [1, 2, 3],
+    ];
+    const array = [
+      [1, 3],
+      [1, 2],
+      [1, 2, 3],
+      [2, 1],
+    ];
+    expect(sortAny(array)).to.deep.equal(expected);
+  });
+
+  it('sorts arrays - simple example', () => {
+    const expected = [
+      [],
+      [1],
+      [2],
+      [1, 2],
+      [2, 1],
+      [1, 3],
+      [3, 1],
+      [1, 2, 3],
+      [3, 2, 1],
+      [1, 2, 4],
+      [1, 2, 3, 4],
+    ];
+    const array = [
+      [3, 2, 1],
+      [1, 2, 3],
+      [1, 2],
+      [],
+      [1, 3],
+      [1],
+      [1, 2, 4],
+      [1, 2, 3, 4],
+      [2],
+      [2, 1],
+      [3, 1],
+    ];
+    expect(sortAny(array)).to.deep.equal(expected);
+  });
+
+  it('sorts arrays without symbols', () => {
     const expected = [
       [],
       [undefined],
@@ -211,13 +257,6 @@ describe('test', () => {
       ['lorem'],
       ['lorem ipsum'],
       ['x'],
-      [Symbol('bar')],
-      [Symbol('bar')],
-      [Symbol('baz')],
-      [Symbol('foo')],
-      [Symbol('lorem')],
-      [Symbol('lorem ipsum')],
-      [Symbol('x')],
       [1, 5],
       [5, 1],
       [1, 20],
@@ -255,15 +294,12 @@ describe('test', () => {
     const array = [
       [3, 2, 1],
       [2, 3, 1],
-      [Symbol('bar')],
       ['lorem'],
       [1, 2, 3, 4],
       [1, 300],
       [1, 2, 40],
-      [Symbol('foo')],
       [3, 200],
       [1, 40, 2],
-      [Symbol('x')],
       [3, 3],
       ['lorem ipsum'],
       [undefined],
@@ -288,7 +324,6 @@ describe('test', () => {
       [0],
       [1, 3, 2],
       [5],
-      [Symbol('lorem')],
       [20, 1],
       [3, 4],
       ['x'],
@@ -298,11 +333,8 @@ describe('test', () => {
       [1, 1, 1],
       [2, 2, 2],
       [1, 2, 3, 40],
-      [Symbol('baz')],
       [3, 2],
-      [Symbol('lorem ipsum')],
       [200],
-      [Symbol('bar')],
       [1, 2, 50],
       ['bar'],
       [1, 2, 3],

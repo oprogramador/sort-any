@@ -1,40 +1,62 @@
-/* eslint-disable no-use-before-define */
+const _ = require('lodash');
 
-const comparators = {
-  array: compareArray,
-  number: standardCompare,
-  object: compareObject,
-  string: standardCompare,
-  symbol: (a, b) => standardCompare(a.toString().slice(0, -1), b.toString().slice(0, -1)),
+/* eslint-disable no-use-before-define */
+/* eslint-disable sort-keys */
+
+const types = {
+  undefined: Symbol('undefined'),
+  null: Symbol('null'),
+  boolean: Symbol('boolean'),
+  NaN: Symbol('NaN'),
+  number: Symbol('number'),
+  string: Symbol('string'),
+  symbol: Symbol('symbol'),
+  array: Symbol('array'),
+  object: Symbol('object'),
 };
 
-function getOrderByType(value) {
+const typesValues = _.values(types);
+const orderedTypes = _.zipObject(typesValues, Object.keys(typesValues).map(key => Number(key)));
+
+const comparators = {
+  [types.array]: compareArray,
+  [types.number]: standardCompare,
+  [types.object]: compareObject,
+  [types.string]: standardCompare,
+  [types.symbol]: (a, b) => standardCompare(a.toString().slice(0, -1), b.toString().slice(0, -1)),
+};
+
+function getOrderByType(type) {
+  return orderedTypes[type];
+}
+
+function getTypeByValue(value) {
   if (typeof value === 'undefined') {
-    return 0;
+    return types.undefined;
   }
   if (value === null) {
-    return 1;
+    return types.null;
   }
   if (typeof value === 'boolean') {
-    return 2;
+    return types.boolean;
   }
   if (typeof value === 'number' && isNaN(value)) {
-    return 3;
+    return types.NaN;
   }
   if (typeof value === 'number') {
-    return 4;
+    return types.number;
   }
   if (typeof value === 'string') {
-    return 5;
+    return types.string;
   }
   if (typeof value === 'symbol') {
-    return 6;
+    return types.symbol;
   }
   if (Array.isArray(value)) {
-    return 7;
+    return types.array;
   }
 
-  return 8;
+  return types.object;
 }
 
 function standardCompare(a, b) {
@@ -55,6 +77,22 @@ function compareArray(first, second) {
   if (second.length < first.length) {
     return 1;
   }
+  const sortedFirst = sortAny(first);
+  const sortedSecond = sortAny(second);
+
+  for (let i = 0; i < first.length; i++) {
+    const compareResult = compareSimple(sortedFirst[i], sortedSecond[i]);
+    if (compareResult) {
+      return compareResult;
+    }
+  }
+
+  for (let i = 0; i < first.length; i++) {
+    const compareResult = compareSimple(first[i], second[i]);
+    if (compareResult) {
+      return compareResult;
+    }
+  }
 
   return 0;
 }
@@ -73,14 +111,15 @@ function compareObject(first, second) {
 }
 
 function compareSimple(first, second) {
-  const firstOrder = getOrderByType(first);
-  const secondOrder = getOrderByType(second);
+  const firstType = getTypeByValue(first);
+  const secondType = getTypeByValue(second);
+  const firstOrder = getOrderByType(firstType);
+  const secondOrder = getOrderByType(secondType);
   const differenceByType = firstOrder - secondOrder;
   if (differenceByType) {
     return differenceByType;
   }
-  const type = typeof first;
-  const comparator = comparators[type] || standardCompare;
+  const comparator = comparators[firstType] || standardCompare;
 
   return comparator(first, second);
 }
@@ -90,7 +129,7 @@ function compare(a, b) {
 }
 
 function sortAny(array) {
-  return array.sort(compare);
+  return [...array].sort(compare);
 }
 
 module.exports = sortAny;
