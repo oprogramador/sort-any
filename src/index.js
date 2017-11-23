@@ -1,4 +1,12 @@
-const getOrderByType = (value) => {
+const comparators = {
+  number: standardCompare,
+  string: standardCompare,
+  symbol: (a, b) => standardCompare(a.toString().slice(0, -1), b.toString().slice(0, -1)),
+  array: compareArray,
+  object: compareObject,
+};
+
+function getOrderByType (value) {
   if (typeof value === 'undefined') {
     return 0;
   }
@@ -25,9 +33,9 @@ const getOrderByType = (value) => {
   }
 
   return 8;
-};
+}
 
-const standardCompare = (a, b) => {
+function standardCompare (a, b) {
   if (a < b) {
     return -1;
   }
@@ -36,15 +44,33 @@ const standardCompare = (a, b) => {
   }
 
   return 0;
-};
+}
 
-const comparators = {
-  number: standardCompare,
-  string: standardCompare,
-  symbol: (a, b) => standardCompare(a.toString().slice(0, -1), b.toString().slice(0, -1)),
-};
+function compareArray (a, b) {
+  if (first.length < second.length) {
+    return -1;
+  }
+  if (second.length < first.length) {
+    return 1;
+  }
 
-const compareSimple = (first, second) => {
+  return 0;
+}
+
+function compareObject (a, b) {
+  const firstKeys = Object.keys(a);
+  const secondKeys = Object.keys(b);
+  if (firstKeys.length < secondKeys.length) {
+    return -1;
+  }
+  if (secondKeys.length < firstKeys.length) {
+    return 1;
+  }
+
+  return 0;
+}
+
+function compareSimple (first, second) {
   const firstOrder = getOrderByType(first);
   const secondOrder = getOrderByType(second);
   const differenceByType = firstOrder - secondOrder;
@@ -52,25 +78,10 @@ const compareSimple = (first, second) => {
     return differenceByType;
   }
   const type = typeof first;
-  if (type !== 'object') {
-    const comparator = comparators[type] || standardCompare;
+  const comparator = comparators[type] || standardCompare;
 
-    return comparator(first, second);
-  }
-  if (Array.isArray(first)) {
-    if (first.length < second.length) {
-      return -1;
-    }
-    if (second.length < first.length) {
-      return 1;
-    }
-
-    return 0;
-  }
-
-  return 0;
-};
-
+  return comparator(first, second);
+}
 
 function compare(a, b) {
   return compareSimple(a, b);
