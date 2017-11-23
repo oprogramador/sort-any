@@ -3,7 +3,7 @@ const sortAny = require('sort-any');
 
 /* eslint-disable sort-keys */
 
-const expected = [
+const globalExpected = [
   undefined,
   null,
   false,
@@ -133,7 +133,7 @@ const expected = [
 
 describe('test', () => {
   it('sorts simple values', () => {
-    const simpleExpected = [
+    const expected = [
       null,
       false,
       true,
@@ -187,11 +187,11 @@ describe('test', () => {
       'lorem ipsum',
       -21,
     ];
-    expect(JSON.parse(JSON.stringify(sortAny(array)))).to.deep.equal(JSON.parse(JSON.stringify(simpleExpected)));
+    expect(JSON.parse(JSON.stringify(sortAny(array)))).to.deep.equal(JSON.parse(JSON.stringify(expected)));
   });
 
   it.skip('sorts arrays', () => {
-    const simpleExpected = [
+    const expected = [
       [],
       [undefined],
       [null],
@@ -313,7 +313,7 @@ describe('test', () => {
       [200, 3],
       [NaN],
     ];
-    expect(sortAny(array)).to.deep.equal(simpleExpected);
+    expect(sortAny(array)).to.deep.equal(expected);
   });
 
   it.skip('sorts - case 1', () => {
@@ -444,7 +444,7 @@ describe('test', () => {
       null,
       [200, 3],
     ];
-    expect(sortAny(array)).to.deep.equal(expected);
+    expect(sortAny(array)).to.deep.equal(globalExpected);
   });
 
   it.skip('sorts - case 2', () => {
@@ -575,6 +575,6 @@ describe('test', () => {
       [-21],
       Symbol('lorem ipsum'),
     ];
-    expect(sortAny(array)).to.deep.equal(expected);
+    expect(sortAny(array)).to.deep.equal(globalExpected);
   });
 });
