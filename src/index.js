@@ -1,12 +1,14 @@
+/* eslint-disable no-use-before-define */
+
 const comparators = {
+  array: compareArray,
   number: standardCompare,
+  object: compareObject,
   string: standardCompare,
   symbol: (a, b) => standardCompare(a.toString().slice(0, -1), b.toString().slice(0, -1)),
-  array: compareArray,
-  object: compareObject,
 };
 
-function getOrderByType (value) {
+function getOrderByType(value) {
   if (typeof value === 'undefined') {
     return 0;
   }
@@ -35,7 +37,7 @@ function getOrderByType (value) {
   return 8;
 }
 
-function standardCompare (a, b) {
+function standardCompare(a, b) {
   if (a < b) {
     return -1;
   }
@@ -46,7 +48,7 @@ function standardCompare (a, b) {
   return 0;
 }
 
-function compareArray (a, b) {
+function compareArray(first, second) {
   if (first.length < second.length) {
     return -1;
   }
@@ -57,9 +59,9 @@ function compareArray (a, b) {
   return 0;
 }
 
-function compareObject (a, b) {
-  const firstKeys = Object.keys(a);
-  const secondKeys = Object.keys(b);
+function compareObject(first, second) {
+  const firstKeys = Object.keys(first);
+  const secondKeys = Object.keys(second);
   if (firstKeys.length < secondKeys.length) {
     return -1;
   }
@@ -70,7 +72,7 @@ function compareObject (a, b) {
   return 0;
 }
 
-function compareSimple (first, second) {
+function compareSimple(first, second) {
   const firstOrder = getOrderByType(first);
   const secondOrder = getOrderByType(second);
   const differenceByType = firstOrder - secondOrder;
