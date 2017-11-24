@@ -106,6 +106,30 @@ function compareObject(first, second) {
   if (secondKeys.length < firstKeys.length) {
     return 1;
   }
+  const sortedFirstKeys = sortAny(firstKeys);
+  const sortedSecondKeys = sortAny(secondKeys);
+
+  for (let i = 0; i < firstKeys.length; i++) {
+    const compareResult = compareSimple(sortedFirstKeys[i], sortedSecondKeys[i]);
+    if (compareResult) {
+      return compareResult;
+    }
+  }
+
+  for (let i = 0; i < firstKeys.length; i++) {
+    const key = sortedFirstKeys[i];
+    const compareResult = compareSimple(first[key], second[key]);
+    if (compareResult) {
+      return compareResult;
+    }
+  }
+
+  for (let i = 0; i < firstKeys.length; i++) {
+    const compareResult = compareSimple(firstKeys[i], secondKeys[i]);
+    if (compareResult) {
+      return compareResult;
+    }
+  }
 
   return 0;
 }
@@ -129,7 +153,10 @@ function compare(a, b) {
 }
 
 function sortAny(array) {
-  return [...array].sort(compare);
+  const undefinedsArray = array.filter(x => typeof x === 'undefined');
+  const notUndefinedsArray = array.filter(x => typeof x !== 'undefined');
+
+  return [...undefinedsArray, ...[...notUndefinedsArray].sort(compare)];
 }
 
 module.exports = sortAny;
