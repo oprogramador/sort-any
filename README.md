@@ -112,8 +112,8 @@ Rules for sorting:
 - numbers are sorted with the standard numeric order
 - `-Infinity` is less than any other number
 - `Infinity` is more than any other number
-- strings are sorted in the alphabetic order
-- symbols are sorted in the alphabetic order according to their description
+- strings are sorted in the alphabetical order
+- symbols are sorted in the alphabetical order according to their description
 - rules of arrays sorting:
   - the most important is the length (always a shorter array is less than a longer array)
   - if the length is the same, we sort (recursively using this algorithm) both arrays and we compare the least item from both arrays
