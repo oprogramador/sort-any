@@ -5,4 +5,128 @@
 )
 
 [![NPM status](https://nodei.co/npm/sort-any.png?downloads=true&stars=true)](https://npmjs.org/package/sort-any
-)
+
+JS library which always sorts arrays in the predictable way. Moreover in contrary to `Array.prototype.sort`, it does not modify the argument.
+
+`Array.prototype.sort`:
+```
+[[[11]],[[2]],2,{foo:{foo:2}},1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:1},{foo:0},{foo:{}}].sort()
+/*
+It gives:
+[ 1,
+  [ 1, 2 ],
+  [ [ 11 ] ],
+  2,
+  2,
+  [ [ 2 ] ],
+  [ 3, 4 ],
+  32,
+  4,
+  { foo: { foo: 2 } },
+  { foo: {} },
+  { foo: 1 },
+  { foo: 0 },
+  { foo: { foo: 1 } } ]
+*/
+```
+The same array in a different order:
+```
+[[[11]],[[2]],2,1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:0},{foo:1},{foo:{}},{foo:{foo:2}}].sort()
+/*
+It gives:
+[ 1,
+  [ 1, 2 ],
+  [ [ 11 ] ],
+  2,
+  2,
+  [ [ 2 ] ],
+  [ 3, 4 ],
+  32,
+  4,
+  { foo: { foo: 1 } },
+  { foo: 0 },
+  { foo: 1 },
+  { foo: {} },
+  { foo: { foo: 2 } } ]
+*/
+```
+So the results of `Array.prototype.sort` are strange (ex. numbers are sorted in the alphabetical order) and moreover if we change the array order (ex. for object items), the result has order changed as well.
+
+So I have implemented this library to work like that:
+```
+const sort = require('sort-any');
+sort([[[11]],[[2]],2,{foo:{foo:2}},1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:1},{foo:0},{foo:{}}])
+/*
+It returns:
+[ 1,
+  2,
+  2,
+  4,
+  32,
+  [ [ 2 ] ],
+  [ [ 11 ] ],
+  [ 1, 2 ],
+  [ 3, 4 ],
+  { foo: 0 },
+  { foo: 1 },
+  { foo: {} },
+  { foo: { foo: 1 } },
+  { foo: { foo: 2 } } ]
+*/
+```
+And when we change the order, the result remains the same.
+```
+const sort = require('sort-any');
+sort([[[11]],[[2]],2,1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:0},{foo:1},{foo:{}},{foo:{foo:2}}])
+/*
+It returns:
+[ 1,
+  2,
+  2,
+  4,
+  32,
+  [ [ 2 ] ],
+  [ [ 11 ] ],
+  [ 1, 2 ],
+  [ 3, 4 ],
+  { foo: 0 },
+  { foo: 1 },
+  { foo: {} },
+  { foo: { foo: 1 } },
+  { foo: { foo: 2 } } ]
+*/
+```
+
+Rules for sorting:
+- the most important is the type (from the smallest to the biggest):
+  - undefined
+  - null
+  - boolean
+  - NaN
+  - number (all the numbers except of NaN)
+  - string
+  - symbol
+  - array
+  - object (all the objects except of arrays and null)
+- `false` is less than `true`
+- numbers are sorted with the standard numeric order
+- `-Infinity` is less than any other number
+- `Infinity` is more than any other number
+- strings are sorted in the alphabetic order
+- symbols are sorted in the alphabetic order according to their description
+- rules of arrays sorting:
+  - the most important is the length (always a shorter array is less than a longer array)
+  - if the length is the same, we sort (recursively using this algorithm) both arrays and we compare the least item from both arrays
+  - if the least item is the same, we compare the second least item, and so on
+  - if the arrays include the same values, we compare the elements at 0 index
+  - if the elements at 0 index are the same, we compare the elements at 1 index, 2 index, and so on
+  - if all the elements are equal, the arrays are equal
+- rules of objects sorting:
+  - the most important is the number of the keys (always an object with less keys is less than an object with more keys)
+  - if the number of keys is the same, we sort (recursively using this algorithm) the keys (which can be either strings or symbols) and we compare the least keys from the both objects
+  - if the least key is the same, we compare the second least key, and so on
+  - if all the keys are the same, we compare the values at the least key
+  - if the values at the least key are the same, we compare sequentially next values taking each time a bigger key unless the values differ
+  - if all the values are the same, we compare the keys at 0 index (`Object.keys(object)[0]`)
+  - if the keys at 0 index are the same, we compare the keys at 1 index, 2 index, and so on
+  - if all the keys are the same, the objects are equal
