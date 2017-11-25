@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/oprogramador/sort-any.svg?branch=master)](https://travis-ci.org/oprogramador/sort-any
 )
 
-[![NPM status](https://nodei.co/npm/sort-any.png?downloads=true&stars=true)](https://npmjs.org/package/sort-any
+[![NPM status](https://nodei.co/npm/sort-any.png?downloads=true&stars=true)](https://npmjs.org/package/sort-any)
 
 JS library which always sorts arrays in the predictable way. Moreover in contrary to `Array.prototype.sort`, it does not modify the argument.
 
