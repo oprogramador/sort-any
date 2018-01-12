@@ -9,7 +9,7 @@
 JS library which always sorts arrays in the predictable way. Moreover in contrary to `Array.prototype.sort`, it does not modify the argument.
 
 `Array.prototype.sort`:
-```
+```js
 [[[11]],[[2]],2,{foo:{foo:2}},1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:1},{foo:0},{foo:{}}].sort()
 /*
 It gives:
@@ -29,8 +29,9 @@ It gives:
   { foo: { foo: 1 } } ]
 */
 ```
+
 The same array in a different order:
-```
+```js
 [[[11]],[[2]],2,1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:0},{foo:1},{foo:{}},{foo:{foo:2}}].sort()
 /*
 It gives:
@@ -53,7 +54,7 @@ It gives:
 So the results of `Array.prototype.sort` are strange (ex. numbers are sorted in the alphabetical order) and moreover if we change the array order (ex. for object items), the result has order changed as well.
 
 So I have implemented this library to work like that:
-```
+```js
 const sort = require('sort-any');
 sort([[[11]],[[2]],2,{foo:{foo:2}},1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:1},{foo:0},{foo:{}}])
 /*
@@ -74,8 +75,9 @@ It returns:
   { foo: { foo: 2 } } ]
 */
 ```
+
 And when we change the order, the result remains the same.
-```
+```js
 const sort = require('sort-any');
 sort([[[11]],[[2]],2,1,4,2,{foo:{foo:1}},32,[3,4],[1,2],{foo:0},{foo:1},{foo:{}},{foo:{foo:2}}])
 /*
