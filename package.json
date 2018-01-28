@@ -1,8 +1,8 @@
 {
   "name": "sort-any",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Sorts any JavaScript array in a predictable way (deep equal arrays are always sorted in the same order)",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "rm -rf build && babel src --out-dir build --ignore tests/",
     "lint": "eslint src",
