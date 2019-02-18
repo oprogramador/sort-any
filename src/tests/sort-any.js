@@ -113,9 +113,15 @@ const globalExpected = [
   { bar: 1, baz: 2, foo2: 3 },
   { bar: 1, baz2: 2, foo: 3 },
   { bar2: 1, baz: 2, foo: 3 },
-  { bar: 1, baz: 2, foo: 3, foo2: 4 },
-  { bar: 1, baz: 2, foo: 3, foo2: 5 },
-  { bar: 1, baz: 2, foo: 4, foo2: 4 },
+  {
+    bar: 1, baz: 2, foo: 3, foo2: 4,
+  },
+  {
+    bar: 1, baz: 2, foo: 3, foo2: 5,
+  },
+  {
+    bar: 1, baz: 2, foo: 4, foo2: 4,
+  },
 ];
 
 describe('test', () => {
@@ -404,7 +410,9 @@ describe('test', () => {
       [undefined],
       [1, 5],
       Infinity,
-      { bar: 1, baz: 2, foo: 4, foo2: 4 },
+      {
+        bar: 1, baz: 2, foo: 4, foo2: 4,
+      },
       NaN,
       true,
       [2, 2, 5],
@@ -423,7 +431,9 @@ describe('test', () => {
       [3, 200],
       { bar: 1, baz2: 2, foo: 3 },
       'lorem',
-      { bar: 1, baz: 2, foo: 3, foo2: 4 },
+      {
+        bar: 1, baz: 2, foo: 3, foo2: 4,
+      },
       { foo: 2, bar: 1 },
       'x',
       { bar: 2, baz: 2, foo: 3 },
@@ -468,7 +478,9 @@ describe('test', () => {
       { baz: 2, bar: 2, foo: 3 },
       { bar2: 1, baz: 2, foo: 3 },
       'foo',
-      { bar: 1, baz: 2, foo: 3, foo2: 5 },
+      {
+        bar: 1, baz: 2, foo: 3, foo2: 5,
+      },
       ['x'],
       [1, 20],
       { bar: 2 },
@@ -512,10 +524,14 @@ describe('test', () => {
       [2, 2, 5],
       [3, 2, 1],
       { baz: 2, bar: 1, foo: 4 },
-      { bar: 1, baz: 2, foo: 4, foo2: 4 },
+      {
+        bar: 1, baz: 2, foo: 4, foo2: 4,
+      },
       5,
       [1, 40, 2],
-      { bar: 1, baz: 2, foo: 3, foo2: 5 },
+      {
+        bar: 1, baz: 2, foo: 3, foo2: 5,
+      },
       { bar: 2, foo: 3, baz: 2 },
       undefined,
       [2, 3, 1],
@@ -571,7 +587,9 @@ describe('test', () => {
       { foo: 1, bar: 2 },
       'bar',
       { baz: 2, bar: 2, foo: 3 },
-      { bar: 1, baz: 2, foo: 3, foo2: 4 },
+      {
+        bar: 1, baz: 2, foo: 3, foo2: 4,
+      },
       { foo: 3, baz: 2, bar: 2 },
       5,
       { bar2: 1, baz: 2, foo: 3 },

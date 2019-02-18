@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/oprogramador/sort-any#readme",
   "devDependencies": {
+    "@babel/core": "^7.3.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-module-resolver": "^3.2.0",
