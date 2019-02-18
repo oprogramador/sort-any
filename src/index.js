@@ -40,7 +40,7 @@ function getTypeByValue(value) {
   if (typeof value === 'boolean') {
     return types.boolean;
   }
-  if (typeof value === 'number' && isNaN(value)) {
+  if (typeof value === 'number' && Number.isNaN(value)) {
     return types.NaN;
   }
   if (typeof value === 'number') {
