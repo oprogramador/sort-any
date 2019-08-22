@@ -6,7 +6,7 @@
 
 [![NPM status](https://nodei.co/npm/sort-any.png?downloads=true&stars=true)](https://npmjs.org/package/sort-any)
 
-JS library which always sorts arrays in the predictable way. Moreover in contrary to `Array.prototype.sort`, it does not modify the argument.
+JS library which always sorts arrays in a predictable way. Moreover in contrary to `Array.prototype.sort`, it does not modify the argument.
 
 `Array.prototype.sort`:
 ```js
@@ -51,7 +51,7 @@ It gives:
   { foo: { foo: 2 } } ]
 */
 ```
-So the results of `Array.prototype.sort` are strange (ex. numbers are sorted in the alphabetical order) and moreover if we change the array order (ex. for object items), the result has order changed as well.
+So the results of `Array.prototype.sort` are strange (eg. numbers are sorted in the alphabetical order) and moreover if we change the array order (eg. for object items), the result has order changed as well.
 
 So I have implemented this library to work like that:
 ```js
@@ -100,7 +100,7 @@ It returns:
 ```
 
 Rules for sorting:
-- the most important is the type (from the smallest to the biggest):
+- the most important is the type (from the smallest to the largest):
   - undefined
   - null
   - boolean
@@ -118,17 +118,17 @@ Rules for sorting:
 - symbols are sorted in the alphabetical order according to their description
 - rules of arrays sorting:
   - the most important is the length (always a shorter array is less than a longer array)
-  - if the length is the same, we sort (recursively using this algorithm) both arrays and we compare the least item from both arrays
-  - if the least item is the same, we compare the second least item, and so on
+  - if the length is the same, we sort (recursively using this algorithm) both arrays and we compare the smallest item from both arrays
+  - if the smallest item is the same, we compare the second smallest item, and so on
   - if the arrays include the same values, we compare the elements at 0 index
   - if the elements at 0 index are the same, we compare the elements at 1 index, 2 index, and so on
   - if all the elements are equal, the arrays are equal
 - rules of objects sorting:
   - the most important is the number of the keys (always an object with less keys is less than an object with more keys)
-  - if the number of keys is the same, we sort (recursively using this algorithm) the keys (which can be either strings or symbols) and we compare the least keys from the both objects
-  - if the least key is the same, we compare the second least key, and so on
-  - if all the keys are the same, we compare the values at the least key
-  - if the values at the least key are the same, we compare sequentially next values taking each time a bigger key unless the values differ
+  - if the number of keys is the same, we sort (recursively using this algorithm) the keys (which can be either strings or symbols) and we compare the smallest keys from both objects
+  - if the smallest key is the same, we compare the second smallest key, and so on
+  - if all the keys are the same, we compare the values at the smallest key
+  - if the values at the smallest key are the same, we compare sequentially next values taking each time a bigger key unless the values differ
   - if all the values are the same, we compare the keys at 0 index (`Object.keys(object)[0]`)
   - if the keys at 0 index are the same, we compare the keys at 1 index, 2 index, and so on
   - if all the keys are the same, the objects are equal
