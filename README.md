@@ -108,14 +108,16 @@ Rules for sorting:
   - number (all the numbers except of NaN)
   - string
   - symbol
+  - date
   - array
-  - object (all the objects except of arrays and null)
+  - object (all the objects except of arrays, dates and null)
 - `false` is less than `true`
 - numbers are sorted with the standard numeric order
 - `-Infinity` is less than any other number
 - `Infinity` is more than any other number
 - strings are sorted in the alphabetical order
 - symbols are sorted in the alphabetical order according to their description
+- dates are sorted in the chronological order
 - rules of arrays sorting:
   - the most important is the length (always a shorter array is less than a longer array)
   - if the length is the same, we sort (recursively using this algorithm) both arrays and we compare the smallest item from both arrays

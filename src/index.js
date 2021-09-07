@@ -11,6 +11,7 @@ const types = {
   number: Symbol('number'),
   string: Symbol('string'),
   symbol: Symbol('symbol'),
+  date: Symbol('date'),
   array: Symbol('array'),
   object: Symbol('object'),
 };
@@ -51,6 +52,9 @@ function getTypeByValue(value) {
   }
   if (typeof value === 'symbol') {
     return types.symbol;
+  }
+  if (value instanceof Date) {
+    return types.date;
   }
   if (Array.isArray(value)) {
     return types.array;
