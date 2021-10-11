@@ -109,6 +109,7 @@ Rules for sorting:
   - string
   - symbol
   - date
+  - set
   - array
   - object (all the objects except of arrays, dates and null)
 - `false` is less than `true`
@@ -134,3 +135,5 @@ Rules for sorting:
   - if all the values are the same, we compare the keys at 0 index (`Object.keys(object)[0]`)
   - if the keys at 0 index are the same, we compare the keys at 1 index, 2 index, and so on
   - if all the keys are the same, the objects are equal
+- rules of sets sorting:
+  - the set is converted to an array and the array sorting rules apply

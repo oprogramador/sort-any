@@ -12,6 +12,7 @@ const types = {
   string: Symbol('string'),
   symbol: Symbol('symbol'),
   date: Symbol('date'),
+  set: Symbol('set'),
   array: Symbol('array'),
   object: Symbol('object'),
 };
@@ -21,6 +22,7 @@ const orderedTypes = _.zipObject(typesValues, Object.keys(typesValues).map(key =
 
 const comparators = {
   [types.array]: compareArray,
+  [types.set]: (a, b) => compareArray([...a], [...b]),
   [types.number]: standardCompare,
   [types.object]: compareObject,
   [types.string]: standardCompare,
@@ -55,6 +57,9 @@ function getTypeByValue(value) {
   }
   if (value instanceof Date) {
     return types.date;
+  }
+  if (value instanceof Set) {
+    return types.set;
   }
   if (Array.isArray(value)) {
     return types.array;
