@@ -9,6 +9,9 @@
     "prepublishOnly": "npm run build",
     "test": "mocha -r babel-register --recursive src/tests --timeout 5000"
   },
+  "engines": {
+    "node" : ">=12"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oprogramador/sort-any.git"
