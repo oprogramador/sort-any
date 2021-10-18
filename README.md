@@ -111,6 +111,7 @@ Rules for sorting:
   - date
   - set
   - array
+  - map
   - object (all the objects except of arrays, dates and null)
 - `false` is less than `true`
 - numbers are sorted with the standard numeric order
@@ -137,3 +138,5 @@ Rules for sorting:
   - if all the keys are the same, the objects are equal
 - rules of sets sorting:
   - the set is converted to an array and the array sorting rules apply
+- rules of maps sorting:
+  - the map is converted to an object (with the correspondent keys and values) and the object sorting rules apply
