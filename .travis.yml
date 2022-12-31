@@ -6,7 +6,6 @@ node_js:
   - 12
   - 14
   - 16
-  - node
 script:
   - yarn install --non-interactive
   - yarn lint
