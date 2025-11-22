@@ -1,6 +1,6 @@
 {
   "name": "sort-any",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Sorts any JavaScript array in a predictable way (deep equal arrays are always sorted in the same order)",
   "main": "build/index.js",
   "scripts": {
