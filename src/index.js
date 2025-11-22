@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 /* eslint-disable no-use-before-define */
 /* eslint-disable sort-keys */
 
@@ -18,8 +16,8 @@ const types = {
   object: Symbol('object'),
 };
 
-const typesValues = _.values(types);
-const orderedTypes = _.zipObject(typesValues, Object.keys(typesValues).map(key => Number(key)));
+const typesValues = Object.values(types);
+const orderedTypes = Object.fromEntries(typesValues.map((v, i) => [v, i]));
 
 const comparators = {
   [types.array]: compareArray,
